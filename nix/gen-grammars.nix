@@ -107,7 +107,7 @@ stdenv.mkDerivation rec {
         builtins.hasAttr "source" grammar
         && builtins.hasAttr "git" grammar.source
         && builtins.hasAttr "rev" grammar.source;
-      gitGrammars = builtins.filter isGitGrammar languagesConfig.grammar;
+      gitGrammars = builtins.filter (g: isGitGrammar g && g.name != "perl") languagesConfig.grammar;
       builtGrammars = builtins.map (grammar: {
         inherit (grammar) name;
         value = buildGrammar grammar;
